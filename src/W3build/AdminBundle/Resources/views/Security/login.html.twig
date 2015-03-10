@@ -1,0 +1,53 @@
+{% extends 'W3buildAdminBundle::layout.html.twig' %}
+
+{% block title %}
+    {% trans %}Login{% endtrans %}
+{% endblock %}
+
+{% block layout %}
+<body>
+<div class="container-fluid">
+    <div class="row login-container">
+        {{ flash_messages() }}
+        <div class="login-box">
+            <span class="glyphicon glyphicon-lock visible-xs login-ico"></span>
+            <span class="glyphicon glyphicon-lock hidden-xs login-ico"></span>
+            <div class="widget">
+                {{ form_start(form) }}
+                <div class="form-group">
+                    {{ form_label(form.email, label|default(null), {'label_attr': { 'class': 'sr-only' }}) }}
+                    {{ form_errors(form.email) }}
+                    {{ form_widget(form.email) }}
+                </div>
+                <div class="form-group">
+                    <div class="showPassword">
+                        <div class="checkbox">
+                            {{ form_label(form.show_password) }}
+                            {{ form_errors(form.show_password) }}
+                            {{ form_widget(form.show_password) }}
+                        </div>
+                    </div>
+                    <div class="passwordElement">
+                        {{ form_label(form.password, label|default(null), {'label_attr': { 'class': 'sr-only' }}) }}
+                        {{ form_errors(form.password) }}
+                        {{ form_widget(form.password) }}
+                    </div>
+                </div>
+                {{ form_widget(form.save) }}
+                <div class="stay-logged">
+                    <div class="checkbox">
+                        {{ form_label(form.remember_me) }}
+                        {{ form_errors(form.remember_me) }}
+                        {{ form_widget(form.remember_me) }}
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+            <div id="forgot-password">
+                <a href="#">{% trans %}ForgotPassword?{% endtrans %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer">&copy; 2014 W3build - Všechna práva vyhrazena</div>
+{% endblock %}

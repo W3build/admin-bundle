@@ -1,0 +1,4 @@
+admin:
+    resource: "@W3buildAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /

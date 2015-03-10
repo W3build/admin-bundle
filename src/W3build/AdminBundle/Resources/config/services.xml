@@ -1,0 +1,82 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="admin.controller.dir">W3build\AdminBundle\Controller</parameter>
+        <parameter key="admin.repository.dir">W3build\AdminBundle\Repository</parameter>
+        <parameter key="admin.form.dir">W3build\AdminBundle\Form</parameter>
+        <parameter key="admin.twig.dir">W3build\AdminBundle\Twig</parameter>
+        <parameter key="admin.security.class">W3build\AdminBundle\Security\Facade\Security</parameter>
+        <parameter key="admin.security.route_loader.class">W3build\AdminBundle\Security\RoleHierarchy</parameter>
+        <parameter key="w3build.security.form.validator.current_password.class">W3build\AdminBundle\Form\Constraints\CurrentPassword</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="controller.admin.dashboard" class="%admin.controller.dir%\DashboardController">
+        </service>
+
+        <service id="controller.admin.user" class="%admin.controller.dir%\UserController">
+        </service>
+
+        <service id="controller.admin.security" class="%admin.controller.dir%\SecurityController">
+        </service>
+
+        <service id="controller.admin.settings.account" class="%admin.controller.dir%\AccountSettingsController">
+        </service>
+
+        <service id="controller.admin.notification" class="%admin.controller.dir%\NotificationController">
+        </service>
+
+        <service id="form.admin.user" class="%admin.form.dir%\UserType">
+        </service>
+
+        <service id="form.admin.login" class="%admin.form.dir%\LoginType">
+        </service>
+
+        <service id="form.admin.settings.account" class="%admin.form.dir%\AccountType">
+            <argument type="service" id="w3build.security.form.validator.current_password" />
+        </service>
+
+        <service id="repository.admin.user" class="%admin.repository.dir%\UserRepository">
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+        </service>
+
+        <service id="repository.admin.role" class="%admin.repository.dir%\RoleRepository">
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+        </service>
+
+        <service id="twig.admin.flashbag" class="%admin.twig.dir%\FlashBagExtension">
+            <argument type="service" id="twig"/>
+            <argument type="service" id="session"/>
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="admin.security" class="%admin.security.class%">
+            <argument type="service" id="security.acl.provider" />
+            <argument type="service" id="security.context" />
+            <argument type="service" id="security.encoder_factory" />
+        </service>
+
+        <service id="w3build.security.form.validator.current_password" class="%w3build.security.form.validator.current_password.class%">
+            <argument type="service" id="admin.security" />
+        </service>
+
+        <service id="cache" class="Doctrine\Common\Cache\ApcCache">
+            <call method="setNamespace">
+                <argument>%host%</argument>
+            </call>
+        </service>
+
+        <service id="security.role_hierarchy" class="%admin.security.route_loader.class%">
+            <argument type="service" id="repository.admin.role" />
+            <argument type="service" id="cache" />
+            <argument>%kernel.environment%</argument>
+        </service>
+
+    </services>
+
+</container>

@@ -1,0 +1,14 @@
+dashboard:
+  attr: {class: glyphicon-dashboard}
+  label: Dashboard
+  route: route.admin.dashboard
+
+settings:
+  attr: {class: glyphicon-wrench}
+  label: Settings
+
+  children:
+    users:
+      attr: {class: fa-user}
+      label: Users
+      route: route.admin.user.list

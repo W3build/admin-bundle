@@ -1,0 +1,18 @@
+{% extends 'W3buildAdminBundle::layout.html.twig' %}
+
+{% block title %}
+    UserAdd
+{% endblock %}
+
+{% block body %}
+    <div class="pull-right">
+        <a href="{{ path('route.admin.user.add') }}" class="btn btn-primary fa fa-plus-circle">{% trans %}AddUser{% endtrans %}</a>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="widget">
+        <div class="inner">
+            {{ data_grid(dataGrid) }}
+        </div>
+    </div>
+{% endblock %}

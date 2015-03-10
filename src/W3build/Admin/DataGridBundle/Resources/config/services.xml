@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="admin.data_grid.class">W3build\Admin\DataGridBundle\DataGrid</parameter>
+        <parameter key="admin.data_grid.row_parser.class">W3build\Admin\DataGridBundle\DataGrid\RowParser</parameter>
+        <parameter key="admin.data_grid.twig_extension.class">W3build\Admin\DataGridBundle\DataGrid\TwigExtension</parameter>
+        <parameter key="admin.data_grid.action.twig_extension.class">W3build\Admin\DataGridBundle\DataGrid\Action\TwigExtension</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="admin.data_grid.row_parser" class="%admin.data_grid.row_parser.class%" public="false">
+        </service>
+
+        <service id="admin.data_grid" class="%admin.data_grid.class%" scope="prototype">
+            <argument type="service" id="admin.data_grid.row_parser" />
+        </service>
+
+        <service id="admin.data_grid.twig_extension" class="%admin.data_grid.twig_extension.class%">
+            <argument type="service" id="twig"/>
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="admin.data_grid.action.twig_extension" class="%admin.data_grid.action.twig_extension.class%">
+            <argument type="service" id="twig"/>
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="twig.string_loader" class="Twig_Extension_StringLoader">
+            <tag name="twig.extension" />
+        </service>
+
+    </services>
+</container>

@@ -1,0 +1,75 @@
+{% extends 'W3buildAdminBundle::layout.html.twig' %}
+
+{% block title %}
+    UserAdd
+{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+    <div class="pull-right">
+        {{ form_widget(form.buttons.save) }}
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="widget">
+        <div class="inner">
+            <div class="row">
+                <div class="col-sm-4 hidden-xs">
+                    <h2>{% trans %}BasicData{% endtrans %}</h2>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-xs-6 form-group">
+                                {{ form_label(form.firstName) }}
+                                {{ form_errors(form.firstName) }}
+                                {{ form_widget(form.firstName) }}
+                        </div>
+                        <div class="col-xs-6 form-group">
+                                {{ form_label(form.surname) }}
+                                {{ form_errors(form.surname) }}
+                                {{ form_widget(form.surname) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.email) }}
+                        {{ form_errors(form.email) }}
+                        {{ form_widget(form.email) }}
+                    </div>
+                </div>
+            </div>
+            <div class="separator"></div>
+            <div class="row">
+                <div class="col-sm-4 hidden-xs">
+                    <h2>{% trans %}Password{% endtrans %}</h2>
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        {{ form_label(form.currentPassword) }}
+                        {{ form_widget(form.currentPassword) }}
+                        {{ form_errors(form.currentPassword) }}
+                    </div>
+                    <div class="form-group full">
+                        {{ form_label(form.newPassword.password) }}
+                        {{ form_widget(form.newPassword.password) }}
+                        {{ form_errors(form.newPassword.password) }}
+                    </div>
+                    <div class="form-group full">
+                        {{ form_label(form.newPassword.passwordConfirm) }}
+                        {{ form_widget(form.newPassword.passwordConfirm) }}
+                        {{ form_errors(form.newPassword.passwordConfirm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="separator"></div>
+    {% if form.buttons.delete is defined %}
+    <div class="pull-left">
+        {{ form_widget(form.buttons.delete) }}
+    </div>
+    {% endif %}
+    <div class="pull-right">
+        {{ form_widget(form.buttons.save2) }}
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

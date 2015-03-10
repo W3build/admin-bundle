@@ -1,0 +1,45 @@
+security:
+  encoders:
+    W3build\AdminBundle\Entity\User:
+      algorithm: bcrypt
+
+  acl:
+    connection: default
+
+  role_hierarchy:
+    ROLE_ADMIN: ROLE_USER
+    ROLE_SUPERADMIN: ROLE_ADMIN
+
+  providers:
+    db_provider:
+      entity: { class: W3buildAdminBundle:User, property: email }
+
+  firewalls:
+    dev:
+      pattern:  ^/(_(profiler|wdt)|css|images|js)/
+      security: false
+    admin_login:
+      pattern:  ^/admin/login/$
+      anonymous: true
+    admin:
+      pattern:  ^/admin
+      remember_me:
+        key:      "%secret%"
+        lifetime: 31536000 # 365 days in seconds
+        path:     /
+        domain:   ~ # Defaults to the current domain from $_SERVER
+      form_login:
+        check_path: route.admin.security.login.check
+        login_path: route.admin.security.login
+        username_parameter: admin_login[email]
+        password_parameter: admin_login[password]
+        default_target_path: /
+      logout:
+        path:   route.admin.security.logout
+        target: route.admin.security.login
+      security: true
+
+#  access_control:
+#    - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+#    - { path: ^/admin/config, roles: ROLE_SUPERADMIN}
+#    - { path: ^/admin, roles: ROLE_ADMIN}

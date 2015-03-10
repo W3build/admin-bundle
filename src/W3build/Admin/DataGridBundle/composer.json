@@ -1,0 +1,23 @@
+{
+    "name": "w3build-admin/data-grid-bundle",
+    "type": "w3build-bundle",
+    "description": "W3build admin data grid",
+    "keywords": [],
+    "homepage": "http://w3build.cz",
+    "license": "EULA",
+    "authors": [
+        {
+            "name": "Lukáš Jahoda",
+            "email": "lukas.jahoda@w3build.cz"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/symfony" : "2.3.*"
+    },
+    "autoload": {
+        "psr-0": { "W3build\\Admin\\DataGridBundle\\": "" }
+    },
+    "target-dir": "W3build/Admin/DataGridBundle",
+    "minimum-stability": "dev"
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="W3build - Lukáš Jahoda (info@w3build.cz)">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <title>{% block title %}Administrace{% endblock %}</title>
+
+    {% stylesheets
+    'bundles/w3buildadmin/css/bootstrap.min.css'
+    'bundles/w3buildadmin/css/bootstrap-theme.css'
+    'bundles/w3buildadmin/css/font-awesome.css'
+    'bundles/w3buildadmin/css/dropzone.css'
+    'bundles/w3buildadmin/css/style.css'
+    filter='cssrewrite' output='js/compiled/admin_styles.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
+
+{% block layout %}
+    <body class="sidebar-layout">
+<div class="project-navigation">
+    {#<a class="navbar-brand hidden-xs" href="" target="_blank">{{ settings('projectName') }}</a>#}
+    <a href="{{ path("route.homepage") }}" class="fa fa-share-square-o"></a>
+    <div class="visible-xs controls">
+        <a href="#" class="fa fa-navicon" target="_blank"></a>
+    </div>
+</div>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="search-widget">
+        <form class="navbar-form">
+            <button class="glyphicon glyphicon-search"></button>
+            <input type="text" name="query" placeholder="Search...">
+        </form>
+    </div>
+    <div class="navbar-right hidden-xs">
+        <div class="account">
+            <div class="notification">
+                <span class="fa fa-bell"></span>
+                <span class="badge">0</span>
+            </div>
+            <div class="profile">
+                <ul role="menu">
+                    <li class="profile-link">
+                        <a href="#" data-target="profile-menu" data-toggle="dropdown">{{ app.user.getFullName() }}</a>
+                        <ul class="dropdown-menu profile-menu" role="menu">
+                            <li>
+                                <a href="{{ path('route.admin.settings.account') }}"><span class="fa fa-cog"></span> {% trans %}AccountSettings{% endtrans %}</a>
+                                <a href="{{ path('route.admin.security.logout') }}"><span class="fa fa-power-off"></span> {% trans %}Logout{% endtrans %}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sidebar-wrapper hidden-xs">
+    <div class="sidebar">
+        {{ menu('admin', 'W3buildAdminBundle::menu.html.twig') }}
+    </div>
+</div>
+<div class="container-fluid">
+    {{ flash_messages() }}
+
+    <h1 class="page-header">{{ block('title')  }}</h1>
+
+    {% block body %}
+    {% endblock %}
+
+</div>
+{% endblock %}
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+<script src="{{ asset('bundles/w3buildadmin/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+{% javascripts
+'@W3buildAdminBundle/Resources/public/js/bootstrap.min.js'
+'@W3buildAdminBundle/Resources/public/js/ui.nestedSortable.js'
+'@W3buildAdminBundle/Resources/public/js/dropzone.js'
+'@W3buildAdminBundle/Resources/public/js/calendar.js'
+'@W3buildAdminBundle/Resources/public/js/script.js'
+output='js/compiled/admin_scripts.js' %}
+<script src="{{ asset_url }}" type="text/javascript"></script>
+{% endjavascripts %}
+    </body>
+</html>

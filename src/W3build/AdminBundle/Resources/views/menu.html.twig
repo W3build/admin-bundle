@@ -1,0 +1,29 @@
+<ul class="nav nav-sidebar">
+    {% for menuItem in menuItems %}
+        <li>
+            {% set children = menuItem.getChildren() %}
+            <a href="{% if children|length > 0 %}#sidebar_{{ menuItem.getId() }}_menu{% else %}{{ path(menuItem.getRoute()) }}{% endif %}" id="sidebar_{{ menuItem.getId() }}"{% if children|length > 0  %} class="data-toggle" {% endif %}>
+                <i class="glyphicon {% if menuItem.getAttr().class is defined %} {{ menuItem.getAttr().class }}{% endif %}"></i>
+                <span>{{ menuItem.getLabel()|trans }}</span>
+            </a>
+            {% if children|length > 0  %}
+                <div class="sub-menu" id="sidebar_{{ menuItem.getId() }}_menu">
+                    <div class="header">
+                        {{ menuItem.getLabel()|trans }}
+                        <span class="close-submenu fa fa-times" data-target="sidebar_{{ menuItem.getId() }}"></span>
+                    </div>
+                    <ul class="nav">
+                        {% for childrenItem in children %}
+                            <li>
+                                <a href="{{ path(childrenItem.getRoute()) }}" class="fa">
+                                    <span class="fa {% if childrenItem.getAttr().class is defined %} {{ childrenItem.getAttr().class }}{% endif %}"></span>
+                                    {{ childrenItem.getLabel()|trans }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
